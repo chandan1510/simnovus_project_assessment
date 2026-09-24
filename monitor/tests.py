@@ -12,6 +12,10 @@ class FleetTests(TestCase):
     def post(self, url, data):
         return self.client.post(url, json.dumps(data), content_type="application/json")
 
+    def test_root_redirects_to_devices(self):
+        response = self.client.get("/")
+        self.assertRedirects(response, "/devices")
+
     def register(self, id="d1", name="Device 1"):
         return self.post("/devices", {"id": id, "name": name})
 
